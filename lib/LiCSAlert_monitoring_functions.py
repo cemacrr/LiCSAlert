@@ -112,8 +112,9 @@ def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, L
         
         
         # 4: Possibly run ICASAR
-        if 'ICASAR_results' in [f.name for f in os.scandir(volcano_dir) if f.is_dir()]:                                                         # if an ICASAR folder already exists, simply open the saved file rather than rerunning.  
-            with open(f"{volcano_dir}ICASAR_results/ICASAR_results.pkl", 'rb') as f:
+        icasar_results_file = f"{volcano_dir}ICASAR_results/ICASAR_results.pkl"
+        if os.path.exists(icasar_results_file):                                                 # if an ICASAR results file already exists, simply open the saved file rather than rerunning.  
+            with open(icasar_results_file, 'rb') as f:
                 sources = pickle.load(f)   
                 mask_sources = pickle.load(f)
                 tcs  = pickle.load(f)    
