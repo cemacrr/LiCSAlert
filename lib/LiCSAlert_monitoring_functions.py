@@ -95,7 +95,7 @@ def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, L
           
            
         # 2: Create a log file.  
-        f = open(f"{volcano_dir}{LiCSAR_last_acq}/LiCSALert_log.txt", 'w')
+        f = open(f"{volcano_dir}{LiCSAR_last_acq}/LiCSAlert_log.txt", 'w')                                                                          # 2020/11/16 | MEG | Fix typo in LiCSAlert.  
         original = sys.stdout
         sys.stdout = Tee(sys.stdout, f)
             
