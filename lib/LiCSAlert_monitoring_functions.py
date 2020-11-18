@@ -10,7 +10,7 @@ Created on Mon Jun 29 14:09:28 2020
 
 
 
-def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, LiCSAR_frames_dir, LiCSAlert_volcs_dir, n_para=1):
+def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, LiCSAR_frames_dir, LiCSAlert_volcs_dir, max_baseline_ifgs=35, n_para=1):
     """
        
     Inputs:
@@ -19,6 +19,7 @@ def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, L
         ICASAR_bin | string | Path to folder containing ICASAR functions.  
         LiCSAR_frames_dir | string | path to the folder containing LiCSAR frames.  Needs trailing /
         LiCSAlert_volcs_dir | string | path to the folder containing each volcano.  Needs trailing /
+        max_baseline_ifgs | int | Sets max number of ifgs to be used as baseline.
         n_para | int | Sets number of parallel processes used by LiCSBAS.  
     Returns:
         Directory stucture.  
@@ -132,7 +133,13 @@ def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, L
                                                                                        ica_verbose = 'short', figures = 'png')
             mask_sources = displacement_r2['mask']                                                                                                          # rename a copy of the mask
             print('Done! ')
-        n_baseline_ifgs = tcs.shape[0]                                                                                                                                              # LiCSAlert needs to know how long the baseline stage from ICSASAR was.  
+
+        # set number of baseline ifgs to min of max_baseline_ifgs and 1/3 of
+        # total number of ifgs:
+        n_baseline_ifgs = min(
+            tcs.shape[0] // 3,
+            max_baseline_ifgs
+        )
         
         # 5: Deal with changes to the mask of pixels 
         displacement_r2_combined = {}                                                                                                                                               # a new dictionary to save the interferograms sampled to the combined mask in 
