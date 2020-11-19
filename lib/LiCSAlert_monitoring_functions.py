@@ -10,7 +10,7 @@ Created on Mon Jun 29 14:09:28 2020
 
 
 
-def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, LiCSAR_frames_dir, LiCSAlert_volcs_dir, max_baseline_ifgs=35, n_para=1):
+def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, LiCSAR_frames_dir, LiCSAlert_volcs_dir, n_para=1):
     """
        
     Inputs:
@@ -19,7 +19,6 @@ def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, L
         ICASAR_bin | string | Path to folder containing ICASAR functions.  
         LiCSAR_frames_dir | string | path to the folder containing LiCSAR frames.  Needs trailing /
         LiCSAlert_volcs_dir | string | path to the folder containing each volcano.  Needs trailing /
-        max_baseline_ifgs | int | Sets max number of ifgs to be used as baseline.
         n_para | int | Sets number of parallel processes used by LiCSBAS.  
     Returns:
         Directory stucture.  
@@ -138,7 +137,7 @@ def LiCSAlert_monitoring_mode(volcano, LiCSBAS_bin, LiCSAlert_bin, ICASAR_bin, L
         # total number of ifgs:
         n_baseline_ifgs = min(
             tcs.shape[0] // 3,
-            max_baseline_ifgs
+            LiCSAlert_settings['max_baseline_ifgs']
         )
         
         # 5: Deal with changes to the mask of pixels 
@@ -472,6 +471,7 @@ def read_config_file(config_file):
     
     LiCSAlert_settings['downsample_run'] = float(config.get('LiCSAlert', 'downsample_run'))       # 3 LiCSAlert settings
     LiCSAlert_settings['downsample_plot'] = float(config.get('LiCSAlert', 'downsample_plot'))                 
+    LiCSAlert_settings['max_baseline_ifgs'] = float(config.get('LiCSAlert', 'max_baseline_ifgs'))                 
     
     ICASAR_settings['n_comp'] = int(config.get('ICASAR', 'n_comp'))                             # 4: ICASAR settings
     n_bootstrapped =  int(config.get('ICASAR', 'n_bootstrapped'))                 
