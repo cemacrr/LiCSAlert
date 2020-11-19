@@ -471,7 +471,7 @@ def read_config_file(config_file):
     
     LiCSAlert_settings['downsample_run'] = float(config.get('LiCSAlert', 'downsample_run'))       # 3 LiCSAlert settings
     LiCSAlert_settings['downsample_plot'] = float(config.get('LiCSAlert', 'downsample_plot'))                 
-    LiCSAlert_settings['max_baseline_ifgs'] = float(config.get('LiCSAlert', 'max_baseline_ifgs'))                 
+    LiCSAlert_settings['max_baseline_ifgs'] = int(config.get('LiCSAlert', 'max_baseline_ifgs'))                 
     
     ICASAR_settings['n_comp'] = int(config.get('ICASAR', 'n_comp'))                             # 4: ICASAR settings
     n_bootstrapped =  int(config.get('ICASAR', 'n_bootstrapped'))                 
